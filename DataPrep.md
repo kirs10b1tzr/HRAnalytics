@@ -99,7 +99,7 @@ but the Kaggle datacard explains its been masked, possibly for anonymity or to p
 For my convenience, I will rename the column 'DistanceFromHome' to 'KmHome2Work' for clarity (this is explained in the Kaggle notebook)  
 
 ```python
-hr2 = hr2.rename(columns={'DistanceFromHome':'KmHome2Work'})
+hr2 = hr1.rename(columns={'DistanceFromHome':'KmHome2Work'})
 ```
 
 #### 3.2. Non-numeric Variables
@@ -111,7 +111,7 @@ This will also help us:
 ```python
 
 str_cols = hr2.select_dtypes(include=["str"]).columns # we are picking all the non-numeric columns ('str'/string is their datatype)
-for col in ob_cols: # this loop means that for each column that we picked out
+for col in str_cols: # this loop means that for each column that we picked out
     print(f"Frequency of {col}:", hr2[col].value_counts(), "\n") # print the categories and how many records fall under them
 # Look into loops and string concatenation for more breakdown of the above lines.
 ```
@@ -144,5 +144,11 @@ print(deps)
 | Sales Representative      | 0               | 0                      | 83    |
 
 Everything looks sound here, we won't rename anything.  
+
+#### 4. Optional: Export
+*If you want to upload onto PowerBI*
+```python
+export = hr3.to_csv(r"Users/username/Desktop/Folder1/Folder2/HRAnalytics.csv")
+```
 
 ## Let's move to the analytics!
